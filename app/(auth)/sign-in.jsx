@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 
@@ -6,6 +6,7 @@ import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link } from "expo-router";
+import { signIn } from "../../lib/appwrite";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -14,7 +15,24 @@ const SignIn = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    if (!form.email || !form.password)
+      return Alert.alert("Error", "All fields are required!");
+
+    setIsSubmitting(true);
+
+    try {
+      await signIn(form.email, form.password);
+
+      // set it to global state...
+      router.replace("/home");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -26,7 +44,7 @@ const SignIn = () => {
           />
 
           <Text className="mt-10 text-white text-2xl text-center font-psemibold">
-            Log in
+            Sign In
           </Text>
 
           <FormField
@@ -55,7 +73,7 @@ const SignIn = () => {
           />
 
           <CustomButton
-            title="Log In"
+            title="Sign In"
             handlePress={handleSubmit}
             isLoading={isSubmitting}
             containerStyle="mt-7"
