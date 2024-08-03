@@ -1,24 +1,27 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StatusBar } from "react-native";
 import { Tabs } from "expo-router";
 
 import { icons } from "../../constants";
 
 const TabIcon = ({ icon, name, color, focused }) => {
   return (
-    <View className="items-center justify-center gap-2">
-      <Image
-        source={icon}
-        alt={name}
-        resizeMode="contain"
-        tintColor={color}
-        className="w-6 h-6"
-      />
-      <Text
-        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
-        style={{ color: color }}>
-        {name}
-      </Text>
-    </View>
+    <>
+      <View className="items-center justify-center gap-2">
+        <Image
+          source={icon}
+          alt={name}
+          resizeMode="contain"
+          tintColor={color}
+          className="w-6 h-6"
+        />
+        <Text
+          className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
+          style={{ color: color }}>
+          {name}
+        </Text>
+      </View>
+      <StatusBar barStyle="light-content" />
+    </>
   );
 };
 

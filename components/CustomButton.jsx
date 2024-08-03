@@ -14,7 +14,7 @@ const CustomButton = ({
       disabled={isLoading}
       className={`${containerStyle} ${
         isLoading ? "opacity-50" : ""
-      } bg-secondary rounded-xl min-h-[58px] w-[100%] justify-center items-center`}>
+      } bg-secondary rounded-xl min-h-[58px] justify-center items-center`}>
       <Text className={`${textStyle} text-primary font-psemibold text-lg`}>
         {title}
       </Text>

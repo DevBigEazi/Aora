@@ -11,6 +11,8 @@ import { getCurrentUser, signIn } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -84,7 +86,7 @@ const SignIn = () => {
             title="Sign In"
             handlePress={handleSubmit}
             isLoading={isSubmitting}
-            containerStyle="mt-7"
+            containerStyle="mt-7 w-full"
           />
 
           <View className="flex-row gap-2 pt-5 justify-center">
