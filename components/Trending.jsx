@@ -9,6 +9,7 @@ import {
 } from "react-native";
 // import * as Animatable from "react-native-animatable";
 import { icons } from "../constants";
+import { ResizeMode, Video } from "expo-av";
 
 // const ZoomIn = {
 //   0: {
@@ -58,8 +59,8 @@ import { icons } from "../constants";
 //   );
 // };
 
-const Trending = ({ posts}) => {
-  const [activeItem, setActiveItem] = useState(posts[0]);
+const Trending = ({ posts }) => {
+  //   const [activeItem, setActiveItem] = useState(posts[0]);
   const [play, setPlay] = useState(false);
 
   return (
@@ -68,13 +69,24 @@ const Trending = ({ posts}) => {
       keyExtractor={(item) => item.$id}
       renderItem={({ item }) => (
         <View className="mr-5">
-          {!play ? (
-            <Text className="text-white">Loading...</Text>
+          {play ? (
+            <Video
+              source={{ uri: item.video }}
+              className="w-52 h-72 mt-3 bg-white/10 rounded-[35px]"
+              resizeMode={ResizeMode.CONTAIN}
+              useNativeControls
+              shouldPlay
+              onPlaybackStatusUpdate={(status) => {
+                if (status.didJustFinish) {
+                  setPlay(false);
+                }
+              }}
+            />
           ) : (
             <TouchableOpacity
               className="relative justify-center items-center"
               activeOpacity={0.7}
-              onPress={setPlay(true)}>
+              onPress={() => setPlay(true)}>
               <ImageBackground
                 source={{ uri: item.thumbnail }}
                 className="w-52 h-72 my-5 rounded-[35px] overflow-hidden shadow-lg shadow-black/40"
