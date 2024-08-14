@@ -15,10 +15,13 @@ import EmptyState from "../../components/EmptyState";
 import { getAllVideos, getLatestVideos } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useApprite";
 import VideoCard from "../../components/VideoCard";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllVideos);
   const { data: latestVideos } = useAppwrite(getLatestVideos);
+
+  const { user, setUser, setIsLoggedIn } = useGlobalContext();
 
   const [refreshing, setRefreshing] = useState(false);
   const handleRefresh = async () => {
@@ -42,10 +45,10 @@ const Home = () => {
             <View className="mb-6 items-start justify-between flex-row">
               <View>
                 <Text className="text-sm font-pmedium text-gray-100">
-                  Welcome Back
+                  Welcome Back,
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  Big Eazi
+                  {user?.username}
                 </Text>
               </View>
 

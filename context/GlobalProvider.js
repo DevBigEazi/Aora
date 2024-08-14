@@ -7,7 +7,7 @@ export const useGlobalContext = () => useContext(GlobalContext);
 
 const GlobalProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [User, setUser] = useState(null);
+    const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const GlobalProvider = ({ children }) => {
             value={{
                 isLoggedIn,
                 isLoading,
-                User,
+                user,
                 setIsLoggedIn,
                 setUser,
             }}>
